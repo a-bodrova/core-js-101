@@ -19,8 +19,9 @@
  *    'Tue, 26 Jan 2016 13:48:02 GMT' => Date()
  *    'Sun, 17 May 1998 03:00:00 GMT+01' => Date()
  */
-function parseDataFromRfc2822(/* value */) {
-  throw new Error('Not implemented');
+function parseDataFromRfc2822(value) {
+  // throw new Error('Not implemented');
+  return new Date(value);
 }
 
 /**
@@ -34,14 +35,20 @@ function parseDataFromRfc2822(/* value */) {
  *    '2016-01-19T16:07:37+00:00'    => Date()
  *    '2016-01-19T08:07:37Z' => Date()
  */
-function parseDataFromIso8601(/* value */) {
-  throw new Error('Not implemented');
+function parseDataFromIso8601(value) {
+  // throw new Error('Not implemented');
+  return new Date(value);
 }
 
 
 /**
  * Returns true if specified date is leap year and false otherwise
  * Please find algorithm here: https://en.wikipedia.org/wiki/Leap_year#Algorithm
+ *
+ * if (year is not divisible by 4) then (it is a common year)
+   else if (year is not divisible by 100) then (it is a leap year)
+   else if (year is not divisible by 400) then (it is a common year)
+   else (it is a leap year)
  *
  * @param {date} date
  * @return {bool}
@@ -53,8 +60,20 @@ function parseDataFromIso8601(/* value */) {
  *    Date(2012,1,1)    => true
  *    Date(2015,1,1)    => false
  */
-function isLeapYear(/* date */) {
-  throw new Error('Not implemented');
+function isLeapYear(value) {
+  // throw new Error('Not implemented');
+  const date = new Date(value);
+  const year = date.getFullYear();
+  let isLeap = false;
+  if (year % 4 !== 0) {
+    isLeap = false;
+  } else if (year % 100 !== 0) {
+    isLeap = true;
+  } else if (year % 400 !== 0) {
+    isLeap = false;
+  } else isLeap = true;
+
+  return isLeap;
 }
 
 
@@ -73,8 +92,10 @@ function isLeapYear(/* date */) {
  *    Date(2000,1,1,10,0,0),  Date(2000,1,1,10,0,0,250)     => "00:00:00.250"
  *    Date(2000,1,1,10,0,0),  Date(2000,1,1,15,20,10,453)   => "05:20:10.453"
  */
-function timeSpanToString(/* startDate, endDate */) {
-  throw new Error('Not implemented');
+function timeSpanToString(startDate, endDate) {
+  // throw new Error('Not implemented');
+  const date = new Date(endDate - startDate);
+  return date.toJSON().slice(11, 23);
 }
 
 
@@ -94,8 +115,19 @@ function timeSpanToString(/* startDate, endDate */) {
  *    Date.UTC(2016,3,5,18, 0) => Math.PI
  *    Date.UTC(2016,3,5,21, 0) => Math.PI/2
  */
-function angleBetweenClockHands(/* date */) {
-  throw new Error('Not implemented');
+function angleBetweenClockHands(date) {
+  // throw new Error('Not implemented');
+  let hours = date.getUTCHours();
+  if (hours >= 12) hours -= 12;
+  const minutes = date.getUTCMinutes();
+  const angleHours = hours * (360 / 12) + minutes * (360 / 720); // угол часовой стрелки в градусах
+  const angleMinutes = minutes * (360 / 60); // угол минутной стрелки в градусах
+  let biggerAngle = Math.max(angleMinutes, angleHours);
+  const smallerAngle = Math.min(angleMinutes, angleHours);
+  if ((biggerAngle - smallerAngle) > 180) biggerAngle -= 180;
+  const angleBetweenHands = biggerAngle - smallerAngle;
+  const radAngle = angleBetweenHands * (Math.PI / 180);
+  return radAngle;
 }
 
 
