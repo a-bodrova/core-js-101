@@ -261,13 +261,29 @@ function toArrayOfSquares(arr) {
  *   [ 0, 0, 0, 0, 0]         => [ 0, 0, 0, 0, 0]
  *   [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ] => [ 1, 3, 6, 10, 15, 21, 28, 36, 45, 55 ]
  */
-function getMovingSum(/* arr */) {
-  throw new Error('Not implemented');
-  // const array = arr.reduce((acc, item) => {
-  //   acc += item;
-  //   return item = acc;
-  // });
-  // return array;
+
+// if (!Array.of) {
+//   Array.of = function () {
+//     return Array.prototype.slice.call(this.arguments);
+//     // Or
+//     // let vals = []
+//     // for(let prop in arguments){
+//     //     vals.push(arguments[prop])
+//     // }
+//     // return vals.slice()
+//   };
+// }
+
+
+function getMovingSum(arr) {
+  // throw new Error('Not implemented');
+  const array = [];
+  array.push(arr[0]);
+  arr.reduce((acc, item) => {
+    array.push(acc + item);
+    return acc + item;
+  });
+  return array;
 }
 
 /**
