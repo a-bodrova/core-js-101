@@ -5,7 +5,6 @@
  *                                                                                                *
  ************************************************************************************************ */
 
-
 /**
  * Return Promise object that is resolved with string value === 'Hooray!!! She said "Yes"!',
  * if boolean value === true is passed, resolved with string value === 'Oh no, she said "No".',
@@ -28,24 +27,18 @@
  *      .catch((error) => console.log(error.message)) // 'Error: Wrong parameter is passed!
  *                                                    //  Ask her again.';
  */
-function willYouMarryMe(/* isPositiveAnswer */) {
-  throw new Error('Not implemented');
-  // if (isPositiveAnswer) {
-  //   return new Promise((resolve, reject) => {
-  //     resolve('Hooray!!! She said "Yes"!');
-  //     reject(() => {
-  //       throw new Error('Wrong parameter is passed! Ask her again.');
-  //     });
-  //   }).then().catch();
-  // }
-  // return new Promise((resolve, reject) => {
-  //   resolve('Oh no, she said "No".');
-  //   reject(() => {
-  //     throw new Error('Wrong parameter is passed! Ask her again.');
-  //   });
-  // });
-}
+function willYouMarryMe(isPositiveAnswer) {
+  return new Promise((res, rej) => {
+    if (typeof isPositiveAnswer === 'boolean') {
+      if (isPositiveAnswer) {
+        res('Hooray!!! She said "Yes"!');
+      }
+      res('Oh no, she said "No".');
+    }
 
+    rej(new Error('Wrong parameter is passed! Ask her again.'));
+  });
+}
 
 /**
  * Return Promise object that should be resolved with array containing plain values.
@@ -111,7 +104,9 @@ function getFastestPromise(array) {
  */
 function chainPromises(/* array, action */) {
   throw new Error('Not implemented');
-  // return Promise.all(array).then(action);
+  // return new Promise((res) => {
+  //   array.reduce((value) => res(value).then(() => action(value)));
+  // });
 }
 
 module.exports = {
