@@ -48,11 +48,7 @@ function getFizzBuzz(num) {
  *   10 => 3628800
  */
 function getFactorial(n) {
-  // throw new Error('Not implemented');
-  if (n > 1) {
-    return n * getFactorial(n - 1);
-  }
-  return n;
+  return n > 1 ? n * getFactorial(n - 1) : n;
 }
 
 
@@ -70,10 +66,7 @@ function getFactorial(n) {
  */
 function getSumBetweenNumbers(n1, n2) {
   // throw new Error('Not implemented');
-  if (n1 < n2) {
-    return n1 + getSumBetweenNumbers(n1 + 1, n2);
-  }
-  return n1;
+  return n1 < n2 ? n1 + getSumBetweenNumbers(n1 + 1, n2) : n1;
 }
 
 
@@ -92,9 +85,12 @@ function getSumBetweenNumbers(n1, n2) {
  *   10,1,1   =>  false
  *   10,10,10 =>  true
  */
-function isTriangle(/* a, b, c */) {
-  throw new Error('Not implemented');
-  // if (Math.max(a, b, c) ** 2 === )
+function isTriangle(a, b, c) {
+  // throw new Error('Not implemented');
+  const hypo = Math.max(a, b, c);
+  const [catet1, catet2] = [a, b, c].filter((item) => item !== hypo);
+
+  return (hypo ** 2 === (catet1 ** 2) + (catet2 ** 2) || (a === b && a === c));
 }
 
 
