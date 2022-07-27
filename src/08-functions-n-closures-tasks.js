@@ -73,7 +73,10 @@ function getPolynom(...args) {
 
   return (coef) => {
     if (!args) return null;
-    return [...args].reverse().reduce((acc, value, idx) => acc + value * coef ** idx, 0);
+
+    return [...args]
+      .reverse()
+      .reduce((acc, value, idx) => acc + value * coef ** idx, 0);
   };
 }
 
